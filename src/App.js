@@ -6,7 +6,9 @@ class App extends Component {
     super(props);
     this.state = {
       status: 'Clique para aumentar ou diminuir',
-      count: 0
+      count: 0,
+      hour: '00:00:00',
+      date: 'Day Month Year'
     };
 
     this.increase = this.increase.bind(this);
@@ -39,9 +41,25 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({ hour: new Date().toLocaleTimeString() })
+    }, 1000);
+
+    setInterval(() => {
+      this.setState({ date: new Date().toDateString() })
+    }, 3000);
+  }
+
+  componentDidUpdate() {
+    console.log('atualizou!');
+  }
+
   render() {
     return (
       <div>
+        <p> {this.state.date}, {this.state.hour}</p>
+
         <h1>Contador</h1>
         {this.state.status}
 
